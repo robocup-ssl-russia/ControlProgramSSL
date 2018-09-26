@@ -119,7 +119,7 @@ namespace Enjoy
                     KickForward = _kickForward.GetState()
                 };
                 ValueComposed?.Invoke(this, footBot);
-                Thread.Sleep(100);
+                Thread.Sleep(100);//here we can change time of sleeping so it means we can change our refresh time!!!!!!
             }
         }
         private bool _isSpeedDribblerIncPressed = false;
