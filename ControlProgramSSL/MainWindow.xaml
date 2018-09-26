@@ -1,0 +1,42 @@
+﻿<Window x:Class="Enjoy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Enjoy"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Closing="Window_Closing">
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+
+        </Style>
+    </Window.Resources>
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Button Click="Button_Click">Help</Button>
+
+            
+        </StackPanel>
+        <Viewbox  Grid.Column="1" Grid.Row="2" >
+            <local:DeviceUi Grid.Column="1" Grid.Row="2" DataContext="{Binding Device1}"></local:DeviceUi>
+        </Viewbox>
+        <Viewbox  Grid.Column="2" Grid.Row="2">
+            <local:DeviceUi Grid.Column="2" Grid.Row="2" DataContext="{Binding Device2}"></local:DeviceUi>
+        </Viewbox>
+
+        
+
+    </Grid>
+</Window>
