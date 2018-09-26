@@ -67,8 +67,8 @@ namespace Enjoy
                       }
                       
                       _gamepad.ValueComposed += _gamepad_ValueComposed;
-                      Thread tRec = new Thread(new ThreadStart(Receiver));
-                      tRec.Start();
+                      //Thread tRec = new Thread(new ThreadStart(Receiver));
+                      //tRec.Start();
                       _connectionThread = new Thread(CheckConnection)
                       {
                           IsBackground = true
@@ -78,7 +78,7 @@ namespace Enjoy
             }
         }
         private byte[] _incomeArray = new byte[29];
-        private void Receiver()
+        /*private void Receiver()
         {
                 try
                 {
@@ -123,7 +123,7 @@ namespace Enjoy
                     Console.WriteLine("Возникло исключение: " + ex.ToString() + "\n  " + ex.Message);
                 }
         }
-        
+        */
         
         bool ContainHead(byte[] data, out int index)
         {
