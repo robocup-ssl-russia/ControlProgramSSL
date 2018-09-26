@@ -67,8 +67,6 @@ namespace Enjoy
                       }
                       
                       _gamepad.ValueComposed += _gamepad_ValueComposed;
-                      //Thread tRec = new Thread(new ThreadStart(Receiver));
-                      //tRec.Start();
                       _connectionThread = new Thread(CheckConnection)
                       {
                           IsBackground = true
@@ -78,52 +76,6 @@ namespace Enjoy
             }
         }
         private byte[] _incomeArray = new byte[29];
-        /*private void Receiver()
-        {
-                try
-                {
-                    var localPort = int.Parse(LocalPort);
-                    _receivingUdpClient = new UdpClient(localPort);
-                    IPEndPoint remoteIpEndPoint = null;
-                    while (true)
-                    {
-                        if (_isTimeToExit)
-                        {
-                            return;
-                        }
-                        byte[] receiveBytes = _receivingUdpClient?.Receive(ref remoteIpEndPoint);
-                        if (receiveBytes != null && ContainHead(receiveBytes, out int index))
-                        {
-                            if (receiveBytes.Length >= Footbot.MaxIncomePacketLenght)
-                            {
-                                _receiveTimeout.Restart();
-                                byte[] incomeData = new byte[Footbot.MaxIncomePacketLenght];
-                                Array.Copy(receiveBytes, index, incomeData, 0, incomeData.Length);
-                                var incomeValues = Footbot.getStruct(incomeData);
-                                BarrierState = incomeValues.BarrierState;
-                                Q0 = incomeValues.Q0;
-                                Q1 = incomeValues.Q1;
-                                Q2 = incomeValues.Q2;
-                                Q3 = incomeValues.Q3;
-                                Ip = incomeValues.Ip;
-                                Voltage = incomeValues.Voltage;
-                                LeftX = incomeValues.LeftX;
-                                LeftY = incomeValues.LeftY;
-                                RightX = incomeValues.RightX;
-                                RightY = incomeValues.RightY;
-                                KickerChargeStatus = incomeValues.KickerChargeStatus;
-                            }
-                        }
-                        Thread.Sleep(10);
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Возникло исключение: " + ex.ToString() + "\n  " + ex.Message);
-                }
-        }
-        */
         
         bool ContainHead(byte[] data, out int index)
         {
