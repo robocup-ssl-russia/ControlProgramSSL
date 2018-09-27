@@ -40,9 +40,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column ="0" Grid.Row="0" Text="Удаленный порт :"/>
                     <TextBlock Grid.Column ="0" Grid.Row="1" Text="Удаленный IP :"/>
-                    <TextBlock Grid.Column ="0" Grid.Row="2" Text="Локальный порт :"/>
                     <Grid Grid.Column ="0" Grid.Row="3" Margin="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
@@ -54,10 +52,7 @@
                     <Button  Grid.Column ="1" Grid.Row="3" Margin="1" Command="{Binding RefreshGuids}">Обновить устройства</Button>
                     <Button Command="{Binding Connect}" Grid.ColumnSpan="2" Grid.Row="4">Подключить</Button>
 
-
-                    <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding RemotePort}"></TextBox>
                     <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding RemoteIp}"></TextBox>
-                    <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding LocalPort}"></TextBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="6" Text="Статус подключения: "></TextBlock>
                     <TextBlock Grid.Column="1" Grid.Row="6" Text="{Binding IsConnected}"></TextBlock>
@@ -122,40 +117,10 @@
                     <TextBlock Grid.Column ="1" Grid.Row="7" Text="{Binding KickUpVal}"/>
                     <TextBlock Grid.Column ="1" Grid.Row="8" Text="{Binding KickForwardVal}"/>
 
-                    <TextBlock Grid.Column ="0" Grid.Row="9" Text="Q0 :"/>
-                    <TextBlock Grid.Column ="0" Grid.Row="10" Text="Q1 :"/>
-                    <TextBlock Grid.Column ="0" Grid.Row="11" Text="Q2 :"/>
-                    <TextBlock Grid.Column ="0" Grid.Row="12" Text="Q3 :"/>
-                    <TextBlock Grid.Column ="0" Grid.Row="13" Text="Ip :"/>
-                    <TextBlock Grid.Column ="0" Grid.Row="14" Text="Left_X:"/>
-                    <TextBlock Grid.Column ="0" Grid.Row="15" Text="Left_Y:"/>
-                    <TextBlock Grid.Column ="0" Grid.Row="16" Text="Right_X:"/>
-                    <TextBlock Grid.Column ="0" Grid.Row="17" Text="Right_Y:"/>
-
-                    <TextBlock Grid.Column ="1" Grid.Row="9" Text="{Binding Q0}"/>
-                    <TextBlock Grid.Column ="1" Grid.Row="10" Text="{Binding Q1}"/>
-                    <TextBlock Grid.Column ="1" Grid.Row="11" Text="{Binding Q2}"/>
-                    <TextBlock Grid.Column ="1" Grid.Row="12" Text="{Binding Q3}"/>
-                    <TextBlock Grid.Column ="1" Grid.Row="13" Text="{Binding Ip}"/>
-                    <TextBlock Grid.Column ="1" Grid.Row="14" Text="{Binding LeftX}"/>
-                    <TextBlock Grid.Column ="1" Grid.Row="15" Text="{Binding LeftY}"/>
-                    <TextBlock Grid.Column ="1" Grid.Row="16" Text="{Binding RightX}"/>
-                    <TextBlock Grid.Column ="1" Grid.Row="17" Text="{Binding RightY}"/>
-
                     <!--income-->
                     <!--//| 			0-3		|   		4 	|        5-8		 | 		9-12		  |        13-16	  |		   17-20		|  			21-24		     | 25-28 |	
                         //| 0xAA 0xAA 0xAA 0xAA | barrier_state | robot_actual_angle | robot_actual_accel | robot_actual_gyro | robot_actual_magnet | robot_kicker_charge_status | crc32 |-->
-                    <TextBlock Grid.Column ="0" Grid.Row="18" Text="barrier_state:"/>
-
-                    <TextBlock Grid.Column ="1" Grid.Row="18" Text="{Binding BarrierState}"/>
-
-                    <TextBlock Grid.Column ="0" Grid.Row="19" Text="kicker_charge_status:"/>
-
-                    <TextBlock Grid.Column ="1" Grid.Row="19" Text="{Binding KickerChargeStatus}"/>
-
-                    <TextBlock Grid.Column ="0" Grid.Row="20" Text="voltage:"/>
-
-                    <TextBlock Grid.Column ="1" Grid.Row="20" Text="{Binding Voltage}"/>
+          
                     <!--KickerChargeStatus-->
 
                 </Grid>

@@ -27,7 +27,6 @@
         <StackPanel>
             <Button Click="Button_Click">Help</Button>
 
-            
         </StackPanel>
         <Viewbox  Grid.Column="1" Grid.Row="2" >
             <local:DeviceUi Grid.Column="1" Grid.Row="2" DataContext="{Binding Device1}"></local:DeviceUi>
