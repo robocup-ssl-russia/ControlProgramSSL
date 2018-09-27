@@ -200,7 +200,7 @@ namespace Enjoy
             {
                 e.SpeedX = (e.SpeedX * 50) / 100;
                 e.SpeedY = (e.SpeedY * 50) / 100;
-                e.SpeedR = (e.SpeedR * 50) / 100;
+                e.SpeedR = (e.SpeedR * 25) / 100;
             }
             SpeedXVal = e.SpeedX;
             SpeedYVal = e.SpeedY;

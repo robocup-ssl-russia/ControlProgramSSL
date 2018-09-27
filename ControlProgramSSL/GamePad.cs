@@ -48,8 +48,9 @@ namespace Enjoy
         private JoystickState _state = new JoystickState();
         public event EventHandler<Footbot> ValueComposed;
 
-        private const int _kickForwardIndex = 0;
-        private const int _dribblerIndex = 1;
+        
+        private const int _dribblerIndex = 0;
+        private const int _kickForwardIndex = 1;
         private const int _kickerEnableIndex = 2;
         private const int _kickUpIndex = 3;
         private GamepadButton _kickerEnable = new GamepadButton();
@@ -72,6 +73,7 @@ namespace Enjoy
             _instance = instance;
             _joystick = Acquire(_instance);
             _joystick.Poll();
+            Console.WriteLine(_instance.InstanceName);
             new Thread(RefreshState) { IsBackground = true }.Start();
         }
 
@@ -91,8 +93,9 @@ namespace Enjoy
                 var btns = _state.GetButtons();
                 if(_isXBoxGamePad == false)
                 {
-                    _speedX = Convert(_state.RotationZ, true);
-                    _speedY = Convert(_state.Z, false);
+                    //Console.WriteLine("Not XBOX");
+                    _speedX = Convert(_state.Y, true); //_stateY is left joystick up/down
+                    _speedY = Convert(_state.X, false); //_stateX is left joystick left/right
                 }
                 else
                 {
@@ -101,11 +104,10 @@ namespace Enjoy
                 }
                 _kickUp.SetState(btns[_kickUpIndex]);
                 _kickForward.SetState(btns[_kickForwardIndex]);
-                _kickerEnable.SetFixationState(btns[_kickerEnableIndex]);
                 _dribbler.SetFixationState(btns[_dribblerIndex]);
                 setPovButtons();
-                _speedR = Convert(_state.X);
-                
+                _speedR = Convert(_state.RotationX);
+
                 var footBot = new Footbot()
                 {
                     SpeedX = _speedX,
@@ -114,7 +116,7 @@ namespace Enjoy
                     SpeedDribbler = _speedDribbler,
                     DribblerEnable = _dribbler.GetState(),
                     KickerVoltageLevel = _voltageLevel,
-                    KickerChargeEnable = _kickerEnable.GetState(),
+                    KickerChargeEnable = 1,
                     KickUp = _kickUp.GetState(),
                     KickForward = _kickForward.GetState()
                 };
@@ -136,55 +138,10 @@ namespace Enjoy
         {
             var povControllers = _state.GetPointOfViewControllers();
             var value = povControllers[0];
-            switch (value)
-            {
-                case ButtonRelease:
-                    {
-                        if (_isSpeedDribblerIncPressed && _speedDribbler < 100)
-                        {
-                            _speedDribbler+=10;
-                        }
-                        if (_isSpeedDribblerDecPressed && _speedDribbler > 0)
-                        {
-                            _speedDribbler-=10;
-                        }
-                        if (_isVoltageLevelIncPressed && _voltageLevel < 30)
-                        {
-                            _voltageLevel+=6;
-                        }
-                        if (_isVoltageLevelDecPressed && _voltageLevel > 0)
-                        {
-                            _voltageLevel-=6;
-                        }
-                        _isSpeedDribblerIncPressed = false;
-                        _isSpeedDribblerDecPressed = false;
-                        _isVoltageLevelIncPressed = false;
-                        _isVoltageLevelDecPressed = false;
-                        break;
-                    }
 
-                case SpeedDribblerIncValue:
-                    {
-                        _isSpeedDribblerIncPressed = true;
-                        break;
-                    }
-                case SpeedDribblerDecValue:
-                    {
-                        _isSpeedDribblerDecPressed = true;
-                        break;
-                    }
-                case VoltageLevelIncValue:
-                    {
-                        _isVoltageLevelIncPressed = true;
-                        break;
-                    }
-                case VoltageLevelDecValue:
-                    {
-                        _isVoltageLevelDecPressed = true;
-                        break;
-                    }
-            }
-
+            //special fixed values for show
+            _voltageLevel = 30;
+            _speedDribbler = 20;
         }
         private int Convert(int val, bool isReverse = false)
         {
