@@ -48,11 +48,10 @@ namespace Enjoy
         private JoystickState _state = new JoystickState();
         public event EventHandler<Footbot> ValueComposed;
 
-        
-        private const int _dribblerIndex = 0;
-        private const int _kickForwardIndex = 1;
-        private const int _kickerEnableIndex = 2;
-        private const int _kickUpIndex = 3;
+        private int _dribblerIndex = 0;
+        private int _kickForwardIndex = 1;
+        private int _kickerEnableIndex = 2;
+        private int _kickUpIndex = 3;
         private GamepadButton _kickerEnable = new GamepadButton();
         private GamepadButton _kickUp = new GamepadButton();
         private GamepadButton _dribbler = new GamepadButton();
@@ -73,7 +72,21 @@ namespace Enjoy
             _instance = instance;
             _joystick = Acquire(_instance);
             _joystick.Poll();
-            Console.WriteLine(_instance.InstanceName);
+            switch (_instance.InstanceName)
+            {
+                case "Wireless Gamepad F710":
+                    _dribblerIndex = 0;
+                    _kickForwardIndex = 1;
+                    _kickerEnableIndex = 2;
+                    _kickUpIndex = 3;
+                    break;
+                case "Logitech Dual Action":
+                    _dribblerIndex = 1;
+                    _kickForwardIndex = 2;
+                    _kickerEnableIndex = 0;
+                    _kickUpIndex = 3;
+                    break;
+            }
             new Thread(RefreshState) { IsBackground = true }.Start();
         }
 
@@ -93,7 +106,6 @@ namespace Enjoy
                 var btns = _state.GetButtons();
                 if(_isXBoxGamePad == false)
                 {
-                    //Console.WriteLine("Not XBOX");
                     _speedX = Convert(_state.Y, true); //_stateY is left joystick up/down
                     _speedY = Convert(_state.X, false); //_stateX is left joystick left/right
                 }
@@ -106,7 +118,20 @@ namespace Enjoy
                 _kickForward.SetState(btns[_kickForwardIndex]);
                 _dribbler.SetFixationState(btns[_dribblerIndex]);
                 setPovButtons();
-                _speedR = Convert(_state.RotationX);
+                switch (_instance.InstanceName)
+                {
+                    case "Wireless Gamepad F710":
+                        _speedX = Convert(_state.Y, true); //_stateY is left joystick up/down
+                        _speedY = Convert(_state.X, false); //_stateX is left joystick left/right
+                        _speedR = Convert(_state.RotationX);
+                        break;
+                    case "Logitech Dual Action":
+                        _speedX = Convert(_state.Y, true); //_stateY is left joystick up/down
+                        _speedY = Convert(_state.X, false); //_stateX is left joystick left/right
+                        _speedR = Convert(_state.Z);
+                        break;
+                }
+               
 
                 var footBot = new Footbot()
                 {
