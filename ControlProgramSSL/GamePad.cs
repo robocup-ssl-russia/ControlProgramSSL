@@ -165,7 +165,7 @@ namespace Enjoy
             var value = povControllers[0];
 
             //special fixed values for show
-            _voltageLevel = 30;
+            _voltageLevel = 12;
             _speedDribbler = 20;
         }
         private int Convert(int val, bool isReverse = false)
