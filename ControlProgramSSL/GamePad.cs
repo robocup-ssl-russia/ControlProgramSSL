@@ -74,7 +74,7 @@ namespace Enjoy
             _joystick.Poll();
             switch (_instance.InstanceName)
             {
-                case "Wireless Gamepad F710":
+                case "Controller (Wireless Gamepad F710)":
                     _dribblerIndex = 0;
                     _kickForwardIndex = 1;
                     _kickerEnableIndex = 2;
@@ -120,7 +120,7 @@ namespace Enjoy
                 setPovButtons();
                 switch (_instance.InstanceName)
                 {
-                    case "Wireless Gamepad F710":
+                    case "Controller (Wireless Gamepad F710)":
                         _speedX = Convert(_state.Y, true); //_stateY is left joystick up/down
                         _speedY = Convert(_state.X, false); //_stateX is left joystick left/right
                         _speedR = Convert(_state.RotationX);
