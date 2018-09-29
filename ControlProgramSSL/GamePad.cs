@@ -92,18 +92,31 @@ namespace Enjoy
             new Thread(RefreshState) { IsBackground = true }.Start();
         }
 
-        private bool checkActive()
+        public Guid getGUID()
+        {
+            return _instance.InstanceGuid;
+        }
+
+        /*private bool checkActive()
         {
             IList<DeviceInstance> listOfActive = hostDevice.Available();
             foreach (var device in listOfActive)
             {
-                if ((device.InstanceName + " " + device.InstanceGuid) == (_instance.InstanceName + " " + _instance.InstanceGuid))
+               
+                if (String.Equals((device.InstanceName + " " + device.InstanceGuid), (_instance.InstanceName + " " + _instance.InstanceGuid)))
                 {
                     return true;
                 }
             }
+            foreach (var device in listOfActive)
+            {
+                Console.WriteLine("list: " + device.InstanceName + " " + device.InstanceGuid);
+
+            }
+            Console.WriteLine("it " + _instance.InstanceName + " " + _instance.InstanceGuid);
+
             return false;
-        }
+        }*/
 
         private void RefreshState()
         {
@@ -119,12 +132,28 @@ namespace Enjoy
                     return;
                 }
 
-
-                if (!checkActive())
+                DirectInput dinput = new DirectInput();
+                if (!dinput.IsDeviceAttached(_instance.InstanceGuid))
                 {
-                    continue;
+                    Console.WriteLine("NOT ACTIVE " + _instance.InstanceGuid);
+                    var foot1Bot = new Footbot()
+                    {
+                        SpeedX = 0,
+                        SpeedY = 0,
+                        SpeedR = 0,
+                        SpeedDribbler = 0,
+                        DribblerEnable = 0,
+                        KickerVoltageLevel = 0,
+                        KickerChargeEnable = 0,
+                        KickUp = 0,
+                        KickForward = 0
+                    };
+                    ValueComposed?.Invoke(this, foot1Bot);
+                    while(true){}
+                    //continue;
+               
                 }
-
+                
                 var btns = _state.GetButtons();
                 if(_isXBoxGamePad == false)
                 {
@@ -154,7 +183,12 @@ namespace Enjoy
                         break;
                 }
 
-
+                if (_speedX == 99 && _speedY == -99 && _speedR == -99)
+                {
+                    _speedX = 0;
+                    _speedY = 0;
+                    _speedR = 0;
+                }
                 var footBot = new Footbot()
                 {
                     SpeedX = _speedX,

@@ -13,16 +13,7 @@ namespace Enjoy
             Device2.Name = "Device 2";
             Device3.Name = "Device 3";
         }
-        public IList<DeviceInstance> Available()
-        {
-            IList<DeviceInstance> result = new List<DeviceInstance>();
-            DirectInput dinput = new DirectInput();
-            foreach (DeviceInstance di in dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly))
-            {
-                result.Add(di);
-            }
-            return result;
-        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         Device _device1 = new Device();
         public Device Device1
@@ -55,7 +46,7 @@ namespace Enjoy
                 RaisePropertyChanged(nameof(Device3));
             }
         }
-
+      
 
         public void RaisePropertyChanged(string propertyName)
         {

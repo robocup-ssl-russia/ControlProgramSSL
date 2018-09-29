@@ -216,7 +216,7 @@ namespace Enjoy
             var message = e.getBytes();
             Send(message);
         }
-        string _remoteIp = "192.168.0.74";
+        string _remoteIp = "192.168.43.0";
         public string RemoteIp
         {
             get { return _remoteIp; }
