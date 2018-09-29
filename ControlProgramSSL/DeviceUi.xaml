@@ -46,7 +46,7 @@
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
-                        <ComboBox  SelectedItem="{Binding SelectedGuid}"  ItemsSource="{Binding Items}" Grid.Column="0"/>
+                        <ComboBox SelectedItem="{Binding SelectedGuid}" ItemsSource="{Binding Items}" Grid.Column="0" Height="24" Width="58"/>
                     </Grid>
 
                     <Button  Grid.Column ="1" Grid.Row="3" Margin="1" Command="{Binding RefreshGuids}">Обновить устройства</Button>

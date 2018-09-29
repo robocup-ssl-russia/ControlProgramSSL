@@ -11,6 +11,7 @@ namespace Enjoy
         {
             Device1.Name = "Device 1";
             Device2.Name = "Device 2";
+            Device3.Name = "Device 3";
         }
         public IList<DeviceInstance> Available()
         {
@@ -44,6 +45,16 @@ namespace Enjoy
             }
         }
 
+        Device _device3 = new Device();
+        public Device Device3
+        {
+            get { return _device3; }
+            set
+            {
+                _device3 = value;
+                RaisePropertyChanged(nameof(Device3));
+            }
+        }
 
 
         public void RaisePropertyChanged(string propertyName)
