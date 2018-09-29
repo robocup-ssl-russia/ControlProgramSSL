@@ -65,9 +65,11 @@ namespace Enjoy
         private int _speedY;
         private volatile bool _isimeToExit = false;
         private bool _isXBoxGamePad = false;
+        private Device hostDevice;
 
-        public Gamepad(DeviceInstance instance, bool isXBoxGamePad)
+        public Gamepad(DeviceInstance instance, bool isXBoxGamePad, Device hostDevice)
         {
+            this.hostDevice = hostDevice;
             _isXBoxGamePad = isXBoxGamePad;
             _instance = instance;
             _joystick = Acquire(_instance);
@@ -90,17 +92,37 @@ namespace Enjoy
             new Thread(RefreshState) { IsBackground = true }.Start();
         }
 
+        private bool checkActive()
+        {
+            IList<DeviceInstance> listOfActive = hostDevice.Available();
+            foreach (var device in listOfActive)
+            {
+                if ((device.InstanceName + " " + device.InstanceGuid) == (_instance.InstanceName + " " + _instance.InstanceGuid))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void RefreshState()
         {
             while (true)
             {
                 _state = _joystick.GetCurrentState();
-
+                
+                
                 if(_isimeToExit == true)
                 {
                     _joystick.Unacquire();
                     _joystick.Dispose();
                     return;
+                }
+
+
+                if (!checkActive())
+                {
+                    continue;
                 }
 
                 var btns = _state.GetButtons();
@@ -131,7 +153,7 @@ namespace Enjoy
                         _speedR = Convert(_state.Z);
                         break;
                 }
-               
+
 
                 var footBot = new Footbot()
                 {

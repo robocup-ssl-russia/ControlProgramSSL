@@ -59,11 +59,11 @@ namespace Enjoy
                       var selectedInstance = GetInstance(SelectedGuid);
                       if(SelectedGuid.Contains("XBOX"))
                       {
-                          _gamepad = new Gamepad(selectedInstance, true);
+                          _gamepad = new Gamepad(selectedInstance, true, this);
                       }
                       else
                       {
-                          _gamepad = new Gamepad(selectedInstance, false);
+                          _gamepad = new Gamepad(selectedInstance, false, this);
                       }
                       
                       _gamepad.ValueComposed += _gamepad_ValueComposed;
@@ -144,6 +144,7 @@ namespace Enjoy
             }
             return null;
         }
+
         public IList<DeviceInstance> Available()
         {
             IList<DeviceInstance> result = new List<DeviceInstance>();
