@@ -23,6 +23,7 @@
             <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <StackPanel>
             <Button Click="Button_Click">Help</Button>
@@ -33,6 +34,9 @@
         </Viewbox>
         <Viewbox  Grid.Column="2" Grid.Row="2">
             <local:DeviceUi Grid.Column="2" Grid.Row="2" DataContext="{Binding Device2}"></local:DeviceUi>
+        </Viewbox>
+        <Viewbox  Grid.Column="3" Grid.Row="2">
+            <local:DeviceUi Grid.Column="3" Grid.Row="2" DataContext="{Binding Device3}"></local:DeviceUi>
         </Viewbox>
 
         
