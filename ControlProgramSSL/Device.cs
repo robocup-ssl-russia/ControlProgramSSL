@@ -124,7 +124,7 @@ namespace Enjoy
             var devices = Available();
             foreach (var device in devices)
             {
-                Items.Add(device.InstanceName);
+                Items.Add(device.InstanceName + " " + device.InstanceGuid);
             }
             if (Items.Count != 0)
             {
@@ -136,7 +136,8 @@ namespace Enjoy
             var instances = Available();
             foreach (var instance in instances)
             {
-                if (instance.InstanceName == guid)
+
+                if ((instance.InstanceName + " " + instance.InstanceGuid) == guid)
                 {
                     return instance;
                 }
