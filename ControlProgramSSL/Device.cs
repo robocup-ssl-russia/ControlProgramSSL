@@ -13,13 +13,86 @@ using System.Threading.Tasks;
 
 namespace Enjoy
 {
+    
+    public class InetFlag
+    {
+        private bool flag;
+        Socket socket;
+        Socket handler;
+
+        public InetFlag()
+        {
+
+            flag = false;
+        }
+
+
+        public void catchFlag()
+        {
+            IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8005);
+            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                socket.Bind(ipPoint);
+                socket.Listen(10);
+
+                handler = socket.Accept();
+
+
+                StringBuilder builder = new StringBuilder();
+                int bytes = 0;
+                byte[] data = new byte[256];
+                while (true)
+                {
+                    do
+                    {
+                        bytes = handler.Receive(data);
+                        builder = new StringBuilder(Encoding.ASCII.GetString(data, 0, bytes));
+                    }
+                    while (handler.Available > 0);
+
+                    Console.WriteLine(DateTime.Now.ToShortTimeString() + ": " + builder.ToString());
+                    if (builder.ToString().ElementAt(0) == '1')
+                    {
+                        setFlag(true);
+                        lock (MainViewModel.obj)
+                            MainViewModel.flag = true;
+                    }
+                    else if (builder.ToString().ElementAt(0) == '0')
+                    {
+                        setFlag(false);
+                        lock (MainViewModel.obj)
+                            MainViewModel.flag = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void setFlag(bool flag)
+        {
+            this.flag = flag;
+        }
+
+        public bool getFlag()
+        {
+            return flag;
+        }
+    }
+
+
+
     // включает в себя 1 робота и 1 джойстик
     public class Device : INotifyPropertyChanged, IDisposable
     {
-
+        bool flag;
         volatile Stopwatch _receiveTimeout = new Stopwatch();
         volatile bool _isTimeToExit = false;
         Gamepad _gamepad;
+        //public InetFlag flag;
         Thread _connectionThread;
         UdpClient _receivingUdpClient;
         void CheckConnection()

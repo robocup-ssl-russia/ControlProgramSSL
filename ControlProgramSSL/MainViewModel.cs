@@ -2,18 +2,32 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Net;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
 
 namespace Enjoy
 {
+    
+
     public class MainViewModel : INotifyPropertyChanged, IDisposable
     {
         public MainViewModel()
         {
+            InetFlag flag = new InetFlag();
+            _flagThread = new Thread(flag.catchFlag);
+            _flagThread.Start();
             Device1.Name = "Device 1";
             Device2.Name = "Device 2";
             Device3.Name = "Device 3";
         }
-
+        Thread _flagThread;
+        public static Object obj = new Object();
+        public static Boolean flag = false;
         public event PropertyChangedEventHandler PropertyChanged;
         Device _device1 = new Device();
         public Device Device1

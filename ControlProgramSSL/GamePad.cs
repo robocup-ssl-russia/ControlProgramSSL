@@ -123,7 +123,7 @@ namespace Enjoy
             while (true)
             {
                 _state = _joystick.GetCurrentState();
-                
+
                 
                 if(_isimeToExit == true)
                 {
@@ -183,12 +183,14 @@ namespace Enjoy
                         break;
                 }
 
-                if (_speedX == 99 && _speedY == -99 && _speedR == -99)
-                {
-                    _speedX = 0;
-                    _speedY = 0;
-                    _speedR = 0;
-                }
+                lock (MainViewModel.obj)
+                    if (MainViewModel.flag)
+                    {
+                        _speedX = 0;
+                        _speedY = 0;
+                        _speedR = 0;
+                    }
+
                 var footBot = new Footbot()
                 {
                     SpeedX = _speedX,
