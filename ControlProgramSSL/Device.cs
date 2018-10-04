@@ -29,7 +29,7 @@ namespace Enjoy
 
         public void catchFlag()
         {
-            IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8005);
+            IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse("192.168.0.102"), 8005);
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -56,6 +56,7 @@ namespace Enjoy
                     {
                         setFlag(true);
                         lock (MainViewModel.obj)
+                            Console.WriteLine("!");
                             MainViewModel.flag = true;
                     }
                     else if (builder.ToString().ElementAt(0) == '0')
