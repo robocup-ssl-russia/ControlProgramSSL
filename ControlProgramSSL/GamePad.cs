@@ -224,7 +224,34 @@ namespace Enjoy
 
             //special fixed values for show
             _voltageLevel = 12;
-            _speedDribbler = 20;
+            switch (value)
+            {
+                case ButtonRelease:
+                    {
+                        if (_isSpeedDribblerIncPressed && _speedDribbler < 100)
+                        {
+                            _speedDribbler += 10;
+                        }
+                        if (_isSpeedDribblerDecPressed && _speedDribbler > 0)
+                        {
+                            _speedDribbler -= 10;
+                        }
+                        _isSpeedDribblerDecPressed = false;
+                        _isSpeedDribblerIncPressed = false;
+                        break;
+                    }
+                case SpeedDribblerIncValue:
+                    {
+                        _isSpeedDribblerIncPressed = true;
+                        break;
+                    }
+                case SpeedDribblerDecValue:
+                    {
+                        _isSpeedDribblerDecPressed = true;
+                        break;
+                    }
+            }
+            //_speedDribbler = 20;
         }
         private int Convert(int val, bool isReverse = false)
         {

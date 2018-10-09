@@ -18,7 +18,9 @@ namespace Enjoy
     {
         public MainViewModel()
         {
-            InetFlag flag = new InetFlag();
+            System.IO.StreamReader file = new System.IO.StreamReader("../../IP.txt");
+            String IP = file.ReadLine();
+            InetFlag flag = new InetFlag(IP);
             _flagThread = new Thread(flag.catchFlag);
             _flagThread.Start();
             Device1.Name = "Device 1";

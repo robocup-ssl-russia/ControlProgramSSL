@@ -19,17 +19,18 @@ namespace Enjoy
         private bool flag;
         Socket socket;
         Socket handler;
+        String IP;
 
-        public InetFlag()
+        public InetFlag(String IP)
         {
-
+            this.IP = IP;
             flag = false;
         }
 
 
         public void catchFlag()
         {
-            IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse("192.168.0.102"), 8005);
+            IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(IP), 8005);
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             try
             {
